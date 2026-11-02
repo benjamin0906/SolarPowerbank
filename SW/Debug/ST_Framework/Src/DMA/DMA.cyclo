@@ -1,5 +1,0 @@
-../ST_Framework/Src/DMA/DMA.c:355:6:IDMA_Config	1
-../ST_Framework/Src/DMA/DMA.c:425:6:DMA_Start	1
-../ST_Framework/Src/DMA/DMA.c:467:6:DMA_StartWithNew	1
-../ST_Framework/Src/DMA/DMA.c:515:7:IDMA_IsFree	1
-../ST_Framework/Src/DMA/DMA.c:532:6:DMA_Stop	1

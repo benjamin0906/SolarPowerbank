@@ -1,4 +1,0 @@
-../ST_Framework/Src/SysTick/SysTick.c:36:6:SysTick_Init	0	static
-../ST_Framework/Src/SysTick/SysTick.c:53:6:SysTick_Stop	0	static
-../ST_Framework/Src/SysTick/SysTick.c:69:8:SysTick_GetTicks	0	static
-../ST_Framework/Src/SysTick/SysTick.c:81:6:SysTick_Handler	0	static

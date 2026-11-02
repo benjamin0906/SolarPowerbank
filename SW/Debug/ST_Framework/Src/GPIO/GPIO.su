@@ -1,4 +1,0 @@
-../ST_Framework/Src/GPIO/GPIO.c:125:6:GPIO_PinInit	24	static
-../ST_Framework/Src/GPIO/GPIO.c:193:6:GPIO_Set	0	static
-../ST_Framework/Src/GPIO/GPIO.c:203:7:GPIO_Get	0	static
-../ST_Framework/Src/GPIO/GPIO.c:348:6:GPIO_PinDeinit	16	static

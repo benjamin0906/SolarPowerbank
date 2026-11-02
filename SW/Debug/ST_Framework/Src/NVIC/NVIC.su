@@ -1,3 +1,0 @@
-../ST_Framework/Src/NVIC/NVIC.c:17:6:NVIC_EnableIRQ	0	static
-../ST_Framework/Src/NVIC/NVIC.c:24:6:NVIC_DisableIRQ	0	static
-../ST_Framework/Src/NVIC/NVIC.c:31:6:NVIC_SetPriority	0	static

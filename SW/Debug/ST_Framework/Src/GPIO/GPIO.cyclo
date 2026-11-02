@@ -1,4 +1,0 @@
-../ST_Framework/Src/GPIO/GPIO.c:125:6:GPIO_PinInit	11
-../ST_Framework/Src/GPIO/GPIO.c:193:6:GPIO_Set	8
-../ST_Framework/Src/GPIO/GPIO.c:203:7:GPIO_Get	5
-../ST_Framework/Src/GPIO/GPIO.c:348:6:GPIO_PinDeinit	6

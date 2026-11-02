@@ -1,5 +1,0 @@
-../ST_Framework/Src/GPT/GPT.c:21:6:GPT_Init	3
-../ST_Framework/Src/GPT/GPT.c:70:6:GPT_Start	4
-../ST_Framework/Src/GPT/GPT.c:89:6:GPT_Stop	4
-../ST_Framework/Src/GPT/GPT.c:105:6:GPT_SetCompare	4
-../ST_Framework/Src/GPT/GPT.c:121:8:GPT_GetCntr	4

@@ -1,6 +1,0 @@
-../Src/OLED_Driver.c:167:6:Send	16	static
-../Src/OLED_Driver.c:209:6:OLED_Driver_CopyArrayToBuf	56	static
-../Src/OLED_Driver.c:175:6:OLED_Driver_PutString	40	static
-../Src/OLED_Driver.c:236:6:OLED_Driver_Runnable	8	static
-../Src/OLED_Driver.c:312:6:OLED_Driver_Set	0	static
-../Src/OLED_Driver.c:317:7:OLED_Driver_Running	8	static

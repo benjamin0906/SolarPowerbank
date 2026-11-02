@@ -1,2 +1,0 @@
-../ST_Framework/Src/TIM11/TIM11.c:16:6:TIM11_Init	8	static
-../ST_Framework/Src/TIM11/TIM11.c:32:6:TIM1_TRG_COM_TIM11_IRQHandler	8	static
