@@ -1,0 +1,2 @@
+../Src/BqLayout.c:13:6:BqLayout_Status_Runnable	32	static
+../Src/BqLayout.c:35:6:BqLayout_Faults_Runnable	192	static

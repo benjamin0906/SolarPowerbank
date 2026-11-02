@@ -1,0 +1,2 @@
+../ST_Framework/Src/Core/Core.c:21:6:Core_SystemReset	0	static
+../ST_Framework/Src/Core/Core.c:30:6:Core_SleepMode	0	static

@@ -1,0 +1,3 @@
+../ST_Framework/Src/RCC/RCC.c:765:6:RCC_ClockEnable	8	static
+../ST_Framework/Src/RCC/RCC.c:787:6:RCC_ClockTreeInit	96	static
+../ST_Framework/Src/RCC/RCC.c:897:8:RCC_GetClock	8	static

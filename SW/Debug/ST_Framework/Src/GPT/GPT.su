@@ -1,0 +1,5 @@
+../ST_Framework/Src/GPT/GPT.c:21:6:GPT_Init	32	static
+../ST_Framework/Src/GPT/GPT.c:70:6:GPT_Start	0	static
+../ST_Framework/Src/GPT/GPT.c:89:6:GPT_Stop	0	static
+../ST_Framework/Src/GPT/GPT.c:105:6:GPT_SetCompare	0	static
+../ST_Framework/Src/GPT/GPT.c:121:8:GPT_GetCntr	0	static

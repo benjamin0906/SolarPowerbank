@@ -1,0 +1,8 @@
+../ST_Framework/Src/SPI/SPI.c:609:6:SPI_Init	2
+../ST_Framework/Src/SPI/SPI.c:651:6:WriteData	4
+../ST_Framework/Src/SPI/SPI.c:676:6:EnableTxIsr	1
+../ST_Framework/Src/SPI/SPI.c:683:6:DisableTxIsr	1
+../ST_Framework/Src/SPI/SPI.c:690:6:SPI_Send	2
+../ST_Framework/Src/SPI/SPI.c:707:12:SPI_GetStatus	1
+../ST_Framework/Src/SPI/SPI.c:712:6:SPI_IqrHandler	7
+../ST_Framework/Src/SPI/SPI.c:764:6:SPI1_IRQHandler	1

@@ -1,0 +1,2 @@
+../Src/BQ25690_Driver.c:55:6:BQ25690_Runnable	48	static
+../Src/BQ25690_Driver.c:82:10:BQ25690_GetInfo	12	static

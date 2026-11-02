@@ -1,0 +1,2 @@
+../ST_Framework/Src/GPT1/TIM2/TIM2.c:16:6:TIM2_Init	32	static
+../ST_Framework/Src/GPT1/TIM2/TIM2.c:62:6:TIM2_MEM_SetValue	0	static
