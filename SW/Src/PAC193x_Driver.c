@@ -182,8 +182,8 @@ void ProcessData(void)
             }
             else
             {
-                tCurrent = ((int32)tVbus.I << 1);
-                tAvg = ((int32)tVbus_avg.I << 1);
+                tCurrent = ((int32)tVbus.I);
+                tAvg = ((int32)tVbus_avg.I);
             }
             Vbus[res_index] = tCurrent * vbus_reference;
             Vbus_avg[res_index] = tAvg * vbus_reference;
@@ -224,9 +224,9 @@ int32 PAC_193x_Driver_GetVSense(uint8 channel)
 void StartComm(dtI2CInstance session_type, dtPACStates nextState, uint8 reg_len, uint8 data_len)
 {
     i2c_session = I2C_Start(I2C1, session_type, 0x10, &reg_addr, reg_len, &dataBuf[0], data_len);
-    PacStates = PAC_WaitComm;
     NextState = nextState;
     PrevState = PacStates;
+    PacStates = PAC_WaitComm;
 }
 
 void PAC_193x_Driver_Runnable(void)

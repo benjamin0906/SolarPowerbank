@@ -254,8 +254,8 @@ void OLED_Driver_Runnable(void)
             if(TimePassed(Timestamp, 10) != 0)
             {
                 State = OledState_Init_Off;
+                GPIO_Set(PIN_RES, Set);
             }
-            GPIO_Set(PIN_RES, Set);
             break;
         case OledState_Init_Off:
             dataBuffer[0][0] = 0xAE;

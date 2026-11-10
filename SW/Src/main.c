@@ -124,7 +124,7 @@ int main(void)
 	    PAC_193x_Driver_Runnable();
 	    if((Ticks - TickStamp) > 2000)
         {
-	        if(layout == 3) layout = 0;
+	        if(layout == 2) layout = 0;
 	        else layout++;
             TickStamp = Ticks;
         }
