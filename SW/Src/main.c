@@ -29,6 +29,7 @@
 #include "BQ25690_Driver.h"
 #include "PAC193x_Driver.h"
 #include "MeasLayout.h"
+#include "BtnDriver.h"
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -53,6 +54,7 @@ uint8 TimePassed(uint32 timestamp, uint32 limit)
 
 void Led(void)
 {
+
     GPIO_Set(PortA_5, Toggle);
     Ticks++;
 }
@@ -73,6 +75,8 @@ int main(void)
 
     RCC_ClockTreeInit(ClockCfg);
     RCC_ClockEnable(RCC_GPIOA, Enable);
+    RCC_ClockEnable(RCC_GPIOB, Enable);
+    RCC_ClockEnable(RCC_GPIOC, Enable);
     RCC_ClockEnable(RCC_TIM14, Enable);
     RCC_ClockEnable(RCC_I2C1, Enable);
     RCC_ClockEnable(RCC_SYSCFG, Enable);
@@ -101,7 +105,7 @@ int main(void)
     NVIC_EnableIRQ(IRQ_SPI1);
 
     OLED_Driver_Set(OledMode_On);
-    uint8 layout = 0;
+    int8 layout = 0;
 
     /* Loop forever */
 	for(;;)
@@ -118,15 +122,20 @@ int main(void)
 	            MeasLayout_Layout();
 	            break;
 	    }
-
+	    BtnDriver_Runnable();
 	    OLED_Driver_Runnable();
 	    BQ25690_Runnable();
 	    PAC_193x_Driver_Runnable();
-	    if((Ticks - TickStamp) > 2000)
+	    if(BtnDriver_Btn1Get() == 1)
+	    {
+	        layout --;
+	    }
+	    if(BtnDriver_Btn3Get() == 1)
         {
-	        if(layout == 2) layout = 0;
-	        else layout++;
-            TickStamp = Ticks;
+            layout ++;
         }
+        if(layout == 3) layout = 0;
+        if(layout == -1) layout = 2;
+        TickStamp = Ticks;
 	}
 }
