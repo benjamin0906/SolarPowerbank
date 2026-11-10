@@ -208,6 +208,20 @@ int32 PAC_193x_Driver_GetVBus(uint8 channel)
 }
 
 /**
+ * @brief Returns with the averaged measured bus voltage of the desired channel
+ *
+ * Returns the measured sense voltage in [mV]. The return value format is S15Q16
+ *
+ * @param channel channel id
+ *
+ * @return averaged Vbus voltage of the channel [mV]
+ **/
+int32 PAC_193x_Driver_GetVBusAvg(uint8 channel)
+{
+    return Vbus_avg[channel];
+}
+
+/**
  * @brief Returns with the measured sense voltage of the desired channel
  *
  * Returns the measured sense voltage in [mV]. The return value format is S15Q16
@@ -219,6 +233,20 @@ int32 PAC_193x_Driver_GetVBus(uint8 channel)
 int32 PAC_193x_Driver_GetVSense(uint8 channel)
 {
     return Vsense[channel];
+}
+
+/**
+ * @brief Returns with the averaged measured sense voltage of the desired channel
+ *
+ * Returns the measured sense voltage in [mV]. The return value format is S15Q16
+ *
+ * @param channel channel id
+ *
+ * @return averaged Vsense voltage of the channel [mV]
+ **/
+int32 PAC_193x_Driver_GetVSenseAvg(uint8 channel)
+{
+    return Vsense_avg[channel];
 }
 
 void StartComm(dtI2CInstance session_type, dtPACStates nextState, uint8 reg_len, uint8 data_len)

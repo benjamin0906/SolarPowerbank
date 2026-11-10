@@ -18,7 +18,7 @@ void MeasLayout_Layout(void)
     uint8 string[128];
     int32 temp;
 
-    temp = PAC_193x_Driver_GetVBus(0);
+    temp = PAC_193x_Driver_GetVBusAvg(0);
 
     string[i++] = 'V';
     string[i++] = 'b';
@@ -35,7 +35,7 @@ void MeasLayout_Layout(void)
     i += UQNumToStr(temp, 16, 2, &string[i]);
     string[i++] = '\n';
 
-    temp = PAC_193x_Driver_GetVBus(1);
+    temp = PAC_193x_Driver_GetVBusAvg(1);
 
     string[i++] = 'V';
     string[i++] = 'b';
@@ -52,7 +52,7 @@ void MeasLayout_Layout(void)
     i += UQNumToStr(temp, 16, 4, &string[i]);
     string[i++] = '\n';
 
-    temp = PAC_193x_Driver_GetVSense(0) / 10;
+    temp = PAC_193x_Driver_GetVSenseAvg(0) / 10;
 
     string[i++] = 'I';
     string[i++] = '0';
@@ -66,7 +66,7 @@ void MeasLayout_Layout(void)
     i += UQNumToStr(temp, 16, 4, &string[i]);
     string[i++] = '\n';
 
-    temp = PAC_193x_Driver_GetVSense(1) / 10;
+    temp = PAC_193x_Driver_GetVSenseAvg(1) / 10;
 
     string[i++] = 'I';
     string[i++] = '1';

@@ -11,5 +11,7 @@
 extern void PAC_193x_Driver_Runnable(void);
 extern int32 PAC_193x_Driver_GetVSense(uint8 channel);
 extern int32 PAC_193x_Driver_GetVBus(uint8 channel);
+extern int32 PAC_193x_Driver_GetVSenseAvg(uint8 channel);
+extern int32 PAC_193x_Driver_GetVBusAvg(uint8 channel);
 
 #endif /* PAC193X_DRIVER_H_ */
