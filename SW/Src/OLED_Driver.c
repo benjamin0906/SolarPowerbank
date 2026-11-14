@@ -206,6 +206,15 @@ void OLED_Driver_PutString(uint8 *string)
     }
 }
 
+void OLED_Driver_InverseSection(uint8 line_number, uint8 start, uint8 end)
+{
+    uint8 i;
+    for(i = start * 6; i < (end * 6); i++)
+    {
+        dataBuffer[line_number][i] = ~dataBuffer[line_number][i];
+    }
+}
+
 void OLED_Driver_CopyArrayToBuf(uint8 row, uint8 column, const uint8 *const array, uint8 array_width, uint8 array_height)
 {
     uint8 x = 0;

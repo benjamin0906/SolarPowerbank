@@ -26,8 +26,10 @@ typedef struct sBtnFlags
 static dtBtnDriverStates BtnDriverStates;
 static dtBtnFlags BtnFlags;
 static uint32 Btn1Timestamp;
+static uint32 Btn2Timestamp;
 static uint32 Btn3Timestamp;
 static uint8 Btn1State;
+static uint8 Btn2State;
 static uint8 Btn3State;
 
 void BtnDriver_Runnable(void)
@@ -44,6 +46,7 @@ void BtnDriver_Runnable(void)
         case BtnDriverState_Monitor:
         {
             uint8 Btn1CurrentState = GPIO_Get(BTN1);
+            uint8 Btn2CurrentState = GPIO_Get(BTN2);
             uint8 Btn3CurrentState = GPIO_Get(BTN3);
             switch(BtnFlags.Btn1)
             {
@@ -119,6 +122,43 @@ void BtnDriver_Runnable(void)
                     }
                     break;
             }
+            switch(BtnFlags.Btn2)
+            {
+                case 0:
+                    if(Btn2CurrentState == 0)
+                    {
+                        BtnFlags.Btn2 = 1;
+                        Btn2Timestamp = SysTime();
+                    }
+                    break;
+                case 1:
+                    if(TimePassed(Btn2Timestamp, 50))
+                    {
+                        if(Btn2CurrentState != 0)
+                        {
+                            BtnFlags.Btn2 = 0;
+                        }
+                        else
+                        {
+                            BtnFlags.Btn2 = 2;
+                        }
+                    }
+                    break;
+                case 2:
+                    if(Btn2CurrentState != 0)
+                    {
+                       if(TimePassed(Btn2Timestamp, 1000))
+                       {
+                           Btn2State = 2;
+                       }
+                       else if(TimePassed(Btn2Timestamp, 100))
+                       {
+                           Btn2State = 1;
+                       }
+                       BtnFlags.Btn2 = 0;
+                    }
+                    break;
+            }
         }
             break;
     }
@@ -128,6 +168,13 @@ uint8 BtnDriver_Btn1Get(void)
 {
     uint8 ret = Btn1State;
     Btn1State = 0;
+    return ret;
+}
+
+uint8 BtnDriver_Btn2Get(void)
+{
+    uint8 ret = Btn2State;
+    Btn2State = 0;
     return ret;
 }
 

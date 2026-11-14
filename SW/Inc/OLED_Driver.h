@@ -20,6 +20,6 @@ extern void OLED_Driver_Runnable(void);
 extern void OLED_Driver_Set(dtOledMode mode);
 extern uint8 OLED_Driver_Running(void);
 extern void OLED_Driver_PutString(uint8 *string);
-
+extern void OLED_Driver_InverseSection(uint8 line_number, uint8 start, uint8 end);
 
 #endif /* OLED_DRIVER_H_ */

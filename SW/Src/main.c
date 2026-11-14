@@ -59,6 +59,8 @@ void Led(void)
     Ticks++;
 }
 
+static void MenuHandling(void);
+
 int main(void)
 {
     const dtGPIOConfig OutPPCfg = {.DefState = 0, .Mode = Output, .PUPD = NoPull, .Speed = Medium, .Type = PushPull};
@@ -110,32 +112,78 @@ int main(void)
     /* Loop forever */
 	for(;;)
 	{
-	    switch(layout)
-	    {
-	        case 0:
-	            BqLayout_Status_Runnable();
-	            break;
-	        case 1:
-	            BqLayout_Faults_Runnable();
-	            break;
-	        case 2:
-	            MeasLayout_Layout();
-	            break;
-	    }
 	    BtnDriver_Runnable();
 	    OLED_Driver_Runnable();
 	    BQ25690_Runnable();
 	    PAC_193x_Driver_Runnable();
-	    if(BtnDriver_Btn1Get() == 1)
-	    {
-	        layout --;
-	    }
-	    if(BtnDriver_Btn3Get() == 1)
-        {
-            layout ++;
-        }
-        if(layout == 3) layout = 0;
-        if(layout == -1) layout = 2;
+	    MenuHandling();
         TickStamp = Ticks;
 	}
+}
+
+void MenuHandling(void)
+{
+    static uint8 display_state = 0;
+    uint8 btn1 = BtnDriver_Btn1Get();
+    uint8 btn2 = BtnDriver_Btn2Get();
+    uint8 btn3 = BtnDriver_Btn3Get();
+
+    switch(display_state)
+    {
+        case 0:
+            BqLayout_Status_Runnable();
+            if(btn3)
+            {
+                display_state = 1;
+            }
+            else if(btn1)
+            {
+                display_state = 3;
+            }
+            break;
+        case 1:
+            BqLayout_Faults_Runnable();
+            if(btn3)
+            {
+                display_state = 2;
+            }
+            else if(btn1)
+            {
+                display_state = 0;
+            }
+            break;
+        case 2:
+            MeasLayout_Layout();
+            if(btn3)
+            {
+                display_state = 3;
+            }
+            else if(btn1)
+            {
+                display_state = 1;
+            }
+            break;
+        case 3:
+            BqLayout_Cfg_Runnable(btn2 << 2);
+            if(btn3)
+            {
+                display_state = 0;
+            }
+            else if(btn1)
+            {
+                display_state = 2;
+            }
+            if(btn2 != 0)
+            {
+                display_state = 31;
+            }
+            break;
+        case 31:
+            BqLayout_Cfg_Runnable(btn1 | (btn2 << 2) | (btn3 << 4));
+            if(btn2 == 2)
+            {
+                display_state = 3;
+            }
+            break;
+    }
 }
