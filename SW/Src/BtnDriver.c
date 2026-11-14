@@ -23,14 +23,21 @@ typedef struct sBtnFlags
     uint8 Btn3 :2;
 } dtBtnFlags;
 
+typedef struct sButtonDescriptor
+{
+    dtGPIOs Pin;
+    uint32 ButtonTimestamp;
+    uint8 ButtonState;
+    uint8 ButtonStatus;
+} dtButtonDescriptor;
+
 static dtBtnDriverStates BtnDriverStates;
-static dtBtnFlags BtnFlags;
-static uint32 Btn1Timestamp;
-static uint32 Btn2Timestamp;
-static uint32 Btn3Timestamp;
-static uint8 Btn1State;
-static uint8 Btn2State;
-static uint8 Btn3State;
+
+static dtButtonDescriptor BtnDesc[3] = {
+        {.Pin = BTN1, .ButtonTimestamp = 0, .ButtonState = 0, .ButtonStatus = 0},
+        {.Pin = BTN2, .ButtonTimestamp = 0, .ButtonState = 0, .ButtonStatus = 0},
+        {.Pin = BTN3, .ButtonTimestamp = 0, .ButtonState = 0, .ButtonStatus = 0},
+};
 
 void BtnDriver_Runnable(void)
 {
@@ -44,143 +51,68 @@ void BtnDriver_Runnable(void)
             BtnDriverStates = BtnDriverState_Monitor;
             break;
         case BtnDriverState_Monitor:
-        {
-            uint8 Btn1CurrentState = GPIO_Get(BTN1);
-            uint8 Btn2CurrentState = GPIO_Get(BTN2);
-            uint8 Btn3CurrentState = GPIO_Get(BTN3);
-            switch(BtnFlags.Btn1)
+            for(uint8 looper = 0; looper < (sizeof(BtnDesc)/sizeof(BtnDesc[0])); looper++)
             {
-                case 0:
-                    if(Btn1CurrentState == 0)
-                    {
-                        BtnFlags.Btn1 = 1;
-                        Btn1Timestamp = SysTime();
-                    }
-                    break;
-                case 1:
-                    if(TimePassed(Btn1Timestamp, 50))
-                    {
-                        if(Btn1CurrentState != 0)
+                uint8 BtnCurrentState = GPIO_Get(BtnDesc[looper].Pin);
+                switch(BtnDesc[looper].ButtonState)
+                {
+                    case 0:
+                        if(BtnCurrentState == 0)
                         {
-                            BtnFlags.Btn1 = 0;
+                            BtnDesc[looper].ButtonState = 1;
+                            BtnDesc[looper].ButtonTimestamp = SysTime();
                         }
-                        else
+                        break;
+                    case 1:
+                        if(TimePassed(BtnDesc[looper].ButtonTimestamp, 50))
                         {
-                            BtnFlags.Btn1 = 2;
+                            if(BtnCurrentState != 0)
+                            {
+                                BtnDesc[looper].ButtonState = 0;
+                            }
+                            else
+                            {
+                                BtnDesc[looper].ButtonState = 2;
+                            }
                         }
-                    }
-                    break;
-                case 2:
-                    if(Btn1CurrentState != 0)
-                    {
-                       if(TimePassed(Btn1Timestamp, 1000))
-                       {
-                           Btn1State = 2;
-                       }
-                       else if(TimePassed(Btn1Timestamp, 200))
-                       {
-                           Btn1State = 1;
-                       }
-                       BtnFlags.Btn1 = 0;
-                    }
-                    break;
+                        break;
+                    case 2:
+                        if(BtnCurrentState != 0)
+                        {
+                           if(TimePassed(BtnDesc[looper].ButtonTimestamp, 1000))
+                           {
+                               BtnDesc[looper].ButtonStatus = 2;
+                           }
+                           else if(TimePassed(BtnDesc[looper].ButtonTimestamp, 200))
+                           {
+                               BtnDesc[looper].ButtonStatus = 1;
+                           }
+                           BtnDesc[looper].ButtonState = 0;
+                        }
+                        break;
+                }
             }
-            switch(BtnFlags.Btn3)
-            {
-                case 0:
-                    if(Btn3CurrentState == 0)
-                    {
-                        BtnFlags.Btn3 = 1;
-                        Btn3Timestamp = SysTime();
-                    }
-                    break;
-                case 1:
-                    if(TimePassed(Btn3Timestamp, 50))
-                    {
-                        if(Btn3CurrentState != 0)
-                        {
-                            BtnFlags.Btn3 = 0;
-                        }
-                        else
-                        {
-                            BtnFlags.Btn3 = 2;
-                        }
-                    }
-                    break;
-                case 2:
-                    if(Btn3CurrentState != 0)
-                    {
-                       if(TimePassed(Btn3Timestamp, 1000))
-                       {
-                           Btn3State = 2;
-                       }
-                       else if(TimePassed(Btn3Timestamp, 100))
-                       {
-                           Btn3State = 1;
-                       }
-                       BtnFlags.Btn3 = 0;
-                    }
-                    break;
-            }
-            switch(BtnFlags.Btn2)
-            {
-                case 0:
-                    if(Btn2CurrentState == 0)
-                    {
-                        BtnFlags.Btn2 = 1;
-                        Btn2Timestamp = SysTime();
-                    }
-                    break;
-                case 1:
-                    if(TimePassed(Btn2Timestamp, 50))
-                    {
-                        if(Btn2CurrentState != 0)
-                        {
-                            BtnFlags.Btn2 = 0;
-                        }
-                        else
-                        {
-                            BtnFlags.Btn2 = 2;
-                        }
-                    }
-                    break;
-                case 2:
-                    if(Btn2CurrentState != 0)
-                    {
-                       if(TimePassed(Btn2Timestamp, 1000))
-                       {
-                           Btn2State = 2;
-                       }
-                       else if(TimePassed(Btn2Timestamp, 100))
-                       {
-                           Btn2State = 1;
-                       }
-                       BtnFlags.Btn2 = 0;
-                    }
-                    break;
-            }
-        }
             break;
     }
 }
 
 uint8 BtnDriver_Btn1Get(void)
 {
-    uint8 ret = Btn1State;
-    Btn1State = 0;
+    uint8 ret = BtnDesc[0].ButtonStatus;
+    BtnDesc[0].ButtonStatus = 0;
     return ret;
 }
 
 uint8 BtnDriver_Btn2Get(void)
 {
-    uint8 ret = Btn2State;
-    Btn2State = 0;
+    uint8 ret = BtnDesc[1].ButtonStatus;
+    BtnDesc[1].ButtonStatus = 0;
     return ret;
 }
 
 uint8 BtnDriver_Btn3Get(void)
 {
-    uint8 ret = Btn3State;
-    Btn3State = 0;
+    uint8 ret = BtnDesc[2].ButtonStatus;
+    BtnDesc[2].ButtonStatus = 0;
     return ret;
 }
