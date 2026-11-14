@@ -22,6 +22,7 @@ static uint32 Timestamp;
 static dtBQ25690 BQ25690;
 static dtBqStates BqState;
 static dtBqInfo BqInfo;
+static uint8 reg_addr = 0x0;
 
 static void ProcessRegisters(void)
 {
@@ -54,7 +55,6 @@ static int8 i2c_session;
 
 void BQ25690_Runnable(void)
 {
-    uint8 reg_addr = 0x0;
     switch(BqState)
     {
         case BqState_Read:
@@ -69,9 +69,13 @@ void BQ25690_Runnable(void)
             }
             break;
         case BqState_WaitI2c:
-            if(I2C_Result(I2C1, i2c_session) != Busy)
+            dtI2cSessionResult result = I2C_Result(I2C1, i2c_session);
+            if(result != Busy)
             {
-                ProcessRegisters();
+                if(result == Done)
+                {
+                    ProcessRegisters();
+                }
                 BqState = BqState_Read;
             }
             break;
