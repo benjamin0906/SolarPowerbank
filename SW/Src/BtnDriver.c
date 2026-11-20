@@ -64,7 +64,7 @@ void BtnDriver_Runnable(void)
                         }
                         break;
                     case 1:
-                        if(TimePassed(BtnDesc[looper].ButtonTimestamp, 50))
+                        if(TimePassed(BtnDesc[looper].ButtonTimestamp, 40))
                         {
                             if(BtnCurrentState != 0)
                             {
@@ -83,7 +83,7 @@ void BtnDriver_Runnable(void)
                            {
                                BtnDesc[looper].ButtonStatus = 2;
                            }
-                           else if(TimePassed(BtnDesc[looper].ButtonTimestamp, 200))
+                           else if(TimePassed(BtnDesc[looper].ButtonTimestamp, 100))
                            {
                                BtnDesc[looper].ButtonStatus = 1;
                            }

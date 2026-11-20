@@ -38,6 +38,6 @@ typedef struct sBqInfo
 } dtBqInfo;
 
 extern void BQ25690_Runnable(void);
-extern dtBqInfo BQ25690_GetInfo(void);
+extern const dtBqInfo* BQ25690_GetInfo(void);
 
 #endif /* BQ25690_DRIVER_H_ */

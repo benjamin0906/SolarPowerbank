@@ -73,8 +73,6 @@ int main(void)
     dtI2cConfig i2c_cfg = {.AnalogFilter = 0, .TimingReg = 0x70302E39};
     dtSpiConf spi_cfg = {.CHPA = 0, .CPOL = 0, .ClockDiv = SpiDiv16, .CsFrameLength = 1, .DataSize = Size8Bit, .Instance = 0, .LsbOrMsb = 0, .ChipSelectPin = PortA_4};
 
-    uint32 TickStamp = 0;
-
     RCC_ClockTreeInit(ClockCfg);
     RCC_ClockEnable(RCC_GPIOA, Enable);
     RCC_ClockEnable(RCC_GPIOB, Enable);
@@ -107,7 +105,6 @@ int main(void)
     NVIC_EnableIRQ(IRQ_SPI1);
 
     OLED_Driver_Set(OledMode_On);
-    int8 layout = 0;
 
     /* Loop forever */
 	for(;;)
@@ -117,7 +114,6 @@ int main(void)
 	    BQ25690_Runnable();
 	    PAC_193x_Driver_Runnable();
 	    MenuHandling();
-        TickStamp = Ticks;
 	}
 }
 
@@ -164,25 +160,16 @@ void MenuHandling(void)
             }
             break;
         case 3:
-            BqLayout_Cfg_Runnable(btn2 << 2);
-            if(btn3)
+            if(0 == BqLayout_Cfg_Runnable(btn1 | (btn2 << 2) | (btn3 << 4)))
             {
-                display_state = 0;
-            }
-            else if(btn1)
-            {
-                display_state = 2;
-            }
-            if(btn2 != 0)
-            {
-                display_state = 31;
-            }
-            break;
-        case 31:
-            BqLayout_Cfg_Runnable(btn1 | (btn2 << 2) | (btn3 << 4));
-            if(btn2 == 2)
-            {
-                display_state = 3;
+                if(btn3)
+                {
+                    display_state = 0;
+                }
+                else if(btn1)
+                {
+                    display_state = 2;
+                }
             }
             break;
     }

@@ -16,8 +16,6 @@ typedef enum eBqStates
     BqState_WaitI2c,
 } dtBqStates;
 
-
-
 static uint32 Timestamp;
 static dtBQ25690 BQ25690;
 static dtBqStates BqState;
@@ -83,7 +81,7 @@ void BQ25690_Runnable(void)
 
 }
 
-dtBqInfo BQ25690_GetInfo(void)
+const dtBqInfo* BQ25690_GetInfo(void)
 {
-    return BqInfo;
+    return &BqInfo;
 }

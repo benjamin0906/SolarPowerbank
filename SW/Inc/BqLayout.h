@@ -12,6 +12,6 @@
 
 extern void BqLayout_Status_Runnable(void);
 extern void BqLayout_Faults_Runnable(void);
-extern void BqLayout_Cfg_Runnable(uint8 buttons);
+extern uint8 BqLayout_Cfg_Runnable(uint8 buttons);
 
 #endif /* BQLAYOUTSH_ */
